@@ -9,7 +9,10 @@
   "author": "Sherpal Singh",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "knex": "^0.20.2",
+    "pg": "^7.14.0",
+    "sqlite3": "^4.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.0"
