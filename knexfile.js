@@ -15,7 +15,7 @@ const customConfig = {
   test: {
     client: "sqlite3",
     connection: {
-      filename: "./dev.sqlite3"
+      filename: "./testDB.sqlite3"
     },
     pool: {
       // programatically turn on foreign_keys in sqlite3

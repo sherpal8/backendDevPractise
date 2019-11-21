@@ -4,7 +4,8 @@
   "description": "Create backend database to be deployed to Heroku",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "viewTables": "psql -f db/viewSchemaeData.sql > output.txt"
   },
   "author": "Sherpal Singh",
   "license": "ISC",
