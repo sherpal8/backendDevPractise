@@ -1,5 +1,6 @@
+"use strict";
+
 const { username, password } = require("./config.js");
-const { DB_URL } = process.env;
 const ENV = process.env.NODE_ENV || "development";
 
 const baseConfig = {
@@ -17,7 +18,7 @@ const customConfig = {
       filename: "./dev.sqlite3"
     },
     pool: {
-      // programatically turn on FOREIGN_KEYS in sqlite3
+      // programatically turn on foreign_keys in sqlite3
       afterCreate: function afterCreateConn(conn, cb) {
         conn.run("PRAGMA foreign_keys=ON", cb);
       }
@@ -25,16 +26,14 @@ const customConfig = {
     useNullAsDefault: false
   },
 
-  development,
-  production: {
+  development: {
     client: "postgresql",
-    connection:
-      {
-        host: "localhost",
-        database: "backendDevPractise",
-        username,
-        password
-      } || `${DB_URL}?ssl=true`
+    connection: {
+      host: "localhost",
+      database: "backend_dev_practise",
+      username,
+      password
+    }
   }
 };
 
