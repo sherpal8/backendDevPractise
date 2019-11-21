@@ -1,0 +1,11 @@
+{
+  "name": "backenddevpractise",
+  "version": "1.0.0",
+  "description": "Create backend database to be deployed to Heroku",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sherpal Singh",
+  "license": "ISC"
+}
