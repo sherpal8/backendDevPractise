@@ -23,7 +23,7 @@ This is a backend skill development project. The aim is to create and seed vario
 - git init
 - configurations in auto-generated knexfile.js
 - personal/ private details in config.js
-- connection.js to create connection with knex callbacks
+- connection.js to create connection with every knex call function
 - .gitignore to ignore node_modules and config.js
 - pgDbSetup.sql (run once to establish PG database)
 - knex migrate:make, knex migrate:latest, knex migrate:callback to create schema
