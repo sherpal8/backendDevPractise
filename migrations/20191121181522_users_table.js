@@ -7,7 +7,7 @@ exports.up = function(knex) {
         .unique()
         .notNullable();
       table
-        .string("avatar_url", 50)
+        .string("avatar_url", 255)
         .unique()
         .notNullable();
       table.string("name", 50).notNullable();
