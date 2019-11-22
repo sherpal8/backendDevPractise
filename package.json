@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "viewTables": "psql -f db/viewSchemaeData.sql > output.txt"
+    "viewTables": "psql -f db/viewSchemaeData.sql > output.txt",
+    "testUtils": "mocha spec/utils.spec.js",
+    "testApp": "mocha spec/app.spec.js"
   },
   "author": "Sherpal Singh",
   "license": "ISC",
@@ -16,6 +18,8 @@
     "sqlite3": "^4.1.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
     "nodemon": "^2.0.0"
   }
 }

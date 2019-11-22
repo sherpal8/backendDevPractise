@@ -5,17 +5,17 @@ exports.up = function(knex) {
         .increments("article_id")
         .primary()
         .notNullable();
-      table.string("title", 50).notNullable();
-      table.text("body");
+      table.string("title", 100).notNullable();
+      table.string("body", 2000);
       table.integer("votes").defaultTo(0);
       table
-        .string("topic", 255)
+        .string("topic", 300)
         .notNullable()
         .references("slug")
         .inTable("topics")
         .onDelete("CASCADE");
       table
-        .string("author", 50)
+        .string("author", 100)
         .notNullable()
         .references("username")
         .inTable("users")
