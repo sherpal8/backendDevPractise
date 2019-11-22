@@ -1,7 +1,7 @@
 "use strict";
 
 const { username, password } = require("./config.js");
-const ENV = process.env.NODE_ENV || "development";
+const ENV = process.env.NODE_ENV || "development"; // to seed 'test', set ENV==='test', then run
 
 const baseConfig = {
   migrations: {
