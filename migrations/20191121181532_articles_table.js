@@ -18,7 +18,8 @@ exports.up = function(knex) {
         .string("author", 50)
         .notNullable()
         .references("username")
-        .inTable("users");
+        .inTable("users")
+        .onDelete("CASCADE");
       table
         .date("created_at")
         .defaultTo(knex.fn.now())
