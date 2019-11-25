@@ -98,11 +98,10 @@ describe("test for utils function", () => {
   });
 
   describe("modifyCommentsData()", () => {
-    it("returns a new array", done => {
+    it("returns a new array", () => {
       const originalArr = [];
-      return modifyCommentsData(originalArr).then(function(outputValue) {
-        return expect(outputValue).to.not.equal(originalArr);
-      });
+      const outputValue = modifyCommentsData(originalArr);
+      expect(outputValue).to.not.equal(originalArr);
     });
     it("original data not mutated", () => {
       const originalArr = [
@@ -116,21 +115,20 @@ describe("test for utils function", () => {
           created_at: 1511354163389
         }
       ];
-      return modifyCommentsData(originalArr).then(function(outputValue) {
-        return expect(originalArr).to.eql([
-          {
-            body:
-              "Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!",
-            belongs_to:
-              "Sweet potato & butternut squash soup with lemon & garlic toast",
-            created_by: "butter_bridge",
-            votes: 16,
-            created_at: 1511354163389
-          }
-        ]);
-      });
+      modifyCommentsData(originalArr);
+      expect(originalArr).to.eql([
+        {
+          body:
+            "Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!",
+          belongs_to:
+            "Sweet potato & butternut squash soup with lemon & garlic toast",
+          created_by: "butter_bridge",
+          votes: 16,
+          created_at: 1511354163389
+        }
+      ]);
     });
-    it("processes a single element array of an object", () => {
+    it("processes a single element array", () => {
       const inputData = [
         {
           body:
@@ -148,13 +146,12 @@ describe("test for utils function", () => {
             "Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!",
           votes: 16,
           created_at: "Wed, 22 Nov 2017 12:36:03 GMT",
-          article_id: 17,
+          article_id:
+            "Which current Premier League manager was the best player?",
           author: "butter_bridge"
         }
       ];
-      return modifyCommentsData(inputData).then(function(outputVal) {
-        return expect(outputVal).to.eql(expectedVal);
-      });
+      expect(modifyCommentsData(inputData)).to.eql(expectedVal);
     });
     it("processes multi element array of objects", () => {
       const inputData = [
@@ -182,7 +179,7 @@ describe("test for utils function", () => {
             "Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!",
           votes: 16,
           created_at: "Wed, 22 Nov 2017 12:36:03 GMT",
-          article_id: 22,
+          article_id: "High Altitude Cooking",
           author: "butter_bridge"
         },
         {
@@ -190,13 +187,12 @@ describe("test for utils function", () => {
             "The beautiful thing about treasure is that it exists. Got to find out what kind of sheets these are; not cotton, not rayon, silky.",
           votes: 14,
           created_at: "Tue, 22 Nov 2016 12:36:03 GMT",
-          article_id: 28,
+          article_id:
+            "Defensive Metrics: Measuring the Intensity of a High Press",
           author: "butter_bridge"
         }
       ];
-      return modifyCommentsData(inputData).then(outputValue => {
-        return expect(outputValue).to.eql(expectedVal);
-      });
+      expect(modifyCommentsData(inputData)).to.eql(expectedVal);
     });
   });
 });

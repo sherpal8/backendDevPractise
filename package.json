@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "viewTables": "psql -f db/viewSchemaeData.sql > output.txt",
-    "testUtils": "mocha spec/utils.spec.js --timeout 15000",
+    "testUtils": "mocha spec/utils.spec.js",
     "testApp": "mocha spec/app.spec.js"
   },
   "author": "Sherpal Singh",

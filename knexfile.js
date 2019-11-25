@@ -2,7 +2,7 @@
 
 const { username, password } = require("./config.js");
 let ENV = process.env.NODE_ENV || "development";
-// to seed 'test', set ENV==='test', then run
+// ENV = "test";  ---> to seed 'est' db i.e. sqlite3
 
 const baseConfig = {
   migrations: {
