@@ -1,5 +1,9 @@
 const { expect } = require("chai");
-const { modifyDateFunc, modifyCommentsData } = require("../db/utils");
+const {
+  modifyDateFunc,
+  modifyCommentsData,
+  processComments
+} = require("../db/utils");
 
 process.env.NODE_ENV = "test";
 
@@ -146,7 +150,7 @@ describe("test for utils function", () => {
             "Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!",
           votes: 16,
           created_at: "Wed, 22 Nov 2017 12:36:03 GMT",
-          article_id:
+          belongs_to:
             "Which current Premier League manager was the best player?",
           author: "butter_bridge"
         }
@@ -179,7 +183,7 @@ describe("test for utils function", () => {
             "Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!",
           votes: 16,
           created_at: "Wed, 22 Nov 2017 12:36:03 GMT",
-          article_id: "High Altitude Cooking",
+          belongs_to: "High Altitude Cooking",
           author: "butter_bridge"
         },
         {
@@ -187,12 +191,82 @@ describe("test for utils function", () => {
             "The beautiful thing about treasure is that it exists. Got to find out what kind of sheets these are; not cotton, not rayon, silky.",
           votes: 14,
           created_at: "Tue, 22 Nov 2016 12:36:03 GMT",
-          article_id:
+          belongs_to:
             "Defensive Metrics: Measuring the Intensity of a High Press",
           author: "butter_bridge"
         }
       ];
       expect(modifyCommentsData(inputData)).to.eql(expectedVal);
+    });
+  });
+
+  describe("processComments()", () => {
+    it("when given an empty array, returns an empty array", () => {
+      const arg1 = [];
+      const arg2 = [];
+      expect(processComments(arg1, arg2)).to.eql([]);
+    });
+    it("when given a single element array, processes the object as needed", () => {
+      const arg1 = [
+        {
+          body:
+            "Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!",
+          votes: 16,
+          created_at: "Wed, 22 Nov 2017 12:36:03 GMT",
+          belongs_to:
+            "Which current Premier League manager was the best player?",
+          author: "butter_bridge"
+        }
+      ];
+      const arg2 = [{ article_id: 2 }];
+      expect(processComments(arg1, arg2)).to.eql([
+        {
+          body:
+            "Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!",
+          votes: 16,
+          created_at: "Wed, 22 Nov 2017 12:36:03 GMT",
+          author: "butter_bridge",
+          article_id: 2
+        }
+      ]);
+    });
+    it("when given multi element array, processes the objects accordingly", () => {
+      const arg1 = [
+        {
+          body:
+            "Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!",
+          votes: 16,
+          created_at: "Wed, 22 Nov 2017 12:36:03 GMT",
+          belongs_to:
+            "Which current Premier League manager was the best player?",
+          author: "butter_bridge"
+        },
+        {
+          body: "Wakaya kumata takagiri",
+          votes: 17,
+          created_at: "Wed, 22 Nov 2017 12:36:03 GMT",
+          belongs_to: "The nation of New Beautiful Zealand",
+          author: "butter_bridge"
+        }
+      ];
+      const arg2 = [{ article_id: 21 }, { article_id: 23 }];
+      expect(processComments(arg1, arg2)).to.eql([
+        {
+          body:
+            "Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!",
+          votes: 16,
+          created_at: "Wed, 22 Nov 2017 12:36:03 GMT",
+          author: "butter_bridge",
+          article_id: 21
+        },
+        {
+          body: "Wakaya kumata takagiri",
+          votes: 17,
+          created_at: "Wed, 22 Nov 2017 12:36:03 GMT",
+          author: "butter_bridge",
+          article_id: 23
+        }
+      ]);
     });
   });
 });

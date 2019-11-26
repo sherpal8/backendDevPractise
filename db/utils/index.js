@@ -14,11 +14,19 @@ const modifyCommentsData = function(commentsData) {
     const eachObjCopy = { ...eachObj };
     eachObjCopy.author = eachObjCopy.created_by;
     eachObjCopy.created_at = new Date(eachObjCopy.created_at).toUTCString();
-    eachObjCopy.article_id = eachObjCopy.belongs_to;
     delete eachObjCopy.created_by;
-    delete eachObjCopy.belongs_to;
     return eachObjCopy;
   });
 };
 
-module.exports = { modifyDateFunc, modifyCommentsData };
+const processComments = function(modifiedCommentsData, articleIdArr) {
+  let finalArr = [];
+  articleIdArr.forEach((eachObj, i) => {
+    modifiedCommentsData[i].article_id = eachObj.article_id;
+    delete modifiedCommentsData[i].belongs_to;
+    finalArr.push(modifiedCommentsData[i]);
+  });
+  return finalArr;
+};
+
+module.exports = { modifyDateFunc, modifyCommentsData, processComments };
