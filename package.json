@@ -7,7 +7,7 @@
     "viewTables": "psql -f db/viewSchemaeData.sql > output.txt",
     "testUtils": "mocha spec/utils.spec.js",
     "test": "mocha spec/app.spec.js",
-    "start": "nodemon listen.js"
+    "dev": "nodemon listen.js"
   },
   "author": "Sherpal Singh",
   "license": "ISC",

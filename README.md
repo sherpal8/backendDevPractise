@@ -45,3 +45,16 @@ This is a backend skill development project. The aim is to create and seed vario
 - use insomnia to make requests to view data
 - test driven development utilising mocha framework and chai assertations
 - keep endpoints RESTful
+
+* GET /api/topics
+* GET /api/users/:username
+* GET /api/articles/:article_id
+* PATCH /api/articles/:article_id
+* POST /api/articles/:article_id/comments
+* GET /api/articles/:article_id/comments
+* GET /api/articles
+* PATCH /api/comments/:comment_id
+* DELETE /api/comments/:comment_id
+* GET /api
+
+All endpoints to return objects in JSON format.

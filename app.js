@@ -1,13 +1,16 @@
 const express = require("express");
 const app = express();
-const apiRouter = require("./router/apiRouter");
+const { apiRouter } = require("./router/apiRouter");
 
 app.use(express.json());
 
 app.use("/api", apiRouter);
 
-// to create error handler for stray endpoints
+// custom error handler for stray endpoints
+app.use("*", (req, res, next) => {
+  res.status(404).send({ message: "Page does not exist" });
+});
 
 // to create psql error handlers
 
-module.exports = app;
+module.exports = { app };
