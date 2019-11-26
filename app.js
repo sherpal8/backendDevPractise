@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const { apiRouter } = require("./router/apiRouter");
+const _ = require("./errors");
 
 app.use(express.json());
 
@@ -11,6 +12,12 @@ app.use("*", (req, res, next) => {
   res.status(404).send({ message: "Page does not exist" });
 });
 
-// to create psql error handlers
+// psql error handlers
+app.use(_.errorHandler400);
+app.use(_.errorHandler404);
+app.use(_.errorHandler422);
+app.use(_.errorHandler500);
+// controller 405 err handler
+app.use(_.errorHandler405);
 
 module.exports = { app };

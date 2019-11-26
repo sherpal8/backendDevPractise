@@ -74,6 +74,14 @@ describe("App TDD", () => {
             });
           });
       });
+      it("Error 404: when username does not exist", () => {
+        return request
+          .get("/api/users/sherpal")
+          .expect(404)
+          .then(function({ body: { message } }) {
+            expect(message).to.equal("Page does not exist");
+          });
+      });
     });
   });
 });
