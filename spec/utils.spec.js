@@ -1,11 +1,11 @@
+process.env.NODE_ENV = "test";
+
 const { expect } = require("chai");
 const {
   modifyDateFunc,
   modifyCommentsData,
   processComments
 } = require("../db/utils");
-
-process.env.NODE_ENV = "test";
 
 describe("test for utils function", () => {
   describe("modifyDateFunc()", () => {

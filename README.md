@@ -13,9 +13,9 @@ This is a backend skill development project. The aim is to create and seed vario
 - sqlite3
 - postgresql
 
-## Creating database for test and production environments:
+## Create and seed database for test and production environments:
 
-### Steps to make this happen:
+### Steps:
 
 - created a folder then cd into it for the project
 - mkdir db folder. Inside, data for test-data and development-data, with appropriate index.js files to extract the right data for the right environment
@@ -34,3 +34,14 @@ This is a backend skill development project. The aim is to create and seed vario
 - knex seed:run
 - also, inside knexfile.js, to set env to test, and then \`knex seed:run\` to populate sqlite3 db
 - utils folder, utils function to process some data to enable seeing, with full TDD
+- run \`npm i -D chai mocha\`
+
+## Creating a server to retrieve data:
+
+### Steps:
+
+- npm i express
+- npm i -D nodemon supertest chai-sorted
+- use insomnia to make requests to view data
+- test driven development utilising mocha framework and chai assertations
+- keep endpoints RESTful
