@@ -55,4 +55,25 @@ describe("App TDD", () => {
       });
     });
   });
+  describe("/api/users/:username", () => {
+    describe("GET", () => {
+      it("request with status 200 and object", () => {
+        return request
+          .get("/api/users/jessjelly")
+          .expect(200)
+          .then(function({ body }) {
+            expect(body).to.eql({
+              user: [
+                {
+                  username: "jessjelly",
+                  avatar_url:
+                    "https://s-media-cache-ak0.pinimg.com/564x/39/62/ec/3962eca164e60cf46f979c1f57d4078b.jpg",
+                  name: "Jess Jelly"
+                }
+              ]
+            });
+          });
+      });
+    });
+  });
 });

@@ -1,5 +1,6 @@
 const express = require("express");
 const { topicsRouter } = require("./topicsRouter");
+const { usersRouter } = require("./usersRouter");
 apiRouter = express.Router();
 
 apiRouter.get("/", (req, res, next) => {
@@ -7,5 +8,6 @@ apiRouter.get("/", (req, res, next) => {
 });
 
 apiRouter.use("/topics", topicsRouter);
+apiRouter.use("/users", usersRouter);
 
 module.exports = { apiRouter };
