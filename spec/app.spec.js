@@ -9,6 +9,9 @@ const { connection } = require("../connection");
 chai.use(chaiSorted);
 
 describe("App TDD", () => {
+  afterEach(() => {
+    knex.seed.run();
+  });
   after(() => {
     connection.destroy();
   });
@@ -135,6 +138,40 @@ describe("App TDD", () => {
           .expect(422)
           .then(function({ body: { message } }) {
             expect(message).to.equal("Unprocessable entity");
+          });
+      });
+    });
+    describe.only("PATCH", () => {
+      it("positive inc_votes: responds with 200 & updated object with a rise in the `votes` property value", () => {
+        return request
+          .patch("/api/articles/73", { inc_votes: 1 })
+          .expect(200)
+          .then(function({ body }) {
+            expect(body).to.eql({
+              article: {
+                author: "jessjelly",
+                title: "Running a Node App",
+                article_id: 73,
+                body:
+                  "This is part two of a series on how to get up and running with Systemd and Node.js. This part dives deeper into how to successfully run your app with systemd long-term, and how to set it up in a production environment.",
+                topic: "coding",
+                created_at: "Thu, 18 Aug 2016 12:07:52 GMT",
+                votes: 1,
+                comment_count: 1
+              }
+            });
+          });
+      });
+      it("negative inc_votes: responds with 200 & drop in the `votes` property value", () => {
+        return request
+          .patch("/api/articles/73", { inc_votes: -2 })
+          .expect(200)
+          .then(function({
+            body: {
+              article: { votes }
+            }
+          }) {
+            expect(votes).to.equal(-2);
           });
       });
     });
