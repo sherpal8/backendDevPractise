@@ -12,7 +12,7 @@ describe("App TDD", () => {
   after(() => {
     connection.destroy();
   });
-  describe("Error: Stray endpoints", () => {
+  describe("Error 404: Stray endpoints", () => {
     it("status 404 with error message", () => {
       return request
         .get("/morningAll")
@@ -74,7 +74,7 @@ describe("App TDD", () => {
             });
           });
       });
-      it("Error 404: when username does not exist", () => {
+      it("Error 404: When username does not exist", () => {
         return request
           .get("/api/users/sherpal")
           .expect(404)
@@ -84,9 +84,9 @@ describe("App TDD", () => {
       });
     });
   });
-  describe.only("/api/articles/:article_id", () => {
+  describe("/api/articles/:article_id", () => {
     describe("GET", () => {
-      it("request with status 200 and appropriate object", () => {
+      it("request with status 200 & an object with the correct properties", () => {
         return request
           .get("/api/articles/73")
           .expect(200)
@@ -104,6 +104,37 @@ describe("App TDD", () => {
                 comment_count: 1
               }
             });
+            expect(typeof body).to.equal("object");
+            expect(Array.isArray(body)).to.equal(false);
+            expect(body === null).to.equal(false);
+            expect(body.article).to.contain.keys(
+              "author",
+              "title",
+              "article_id",
+              "body",
+              "topic",
+              "created_at",
+              "votes",
+              "comment_count"
+            );
+          });
+      });
+    });
+    describe("Error handlers", () => {
+      it("400: non-number attempted as article_id", () => {
+        return request
+          .get("/api/articles/sh")
+          .expect(400)
+          .then(function({ body: { message } }) {
+            expect(message).to.equal("Bad request");
+          });
+      });
+      it("422: when an extreme number inserted that is not processable", () => {
+        return request
+          .get("/api/articles/1000")
+          .expect(422)
+          .then(function({ body: { message } }) {
+            expect(message).to.equal("Unprocessable entity");
           });
       });
     });

@@ -1,7 +1,5 @@
 const { connection } = require("../connection");
-
 exports.fetchArticle = function(article_id) {
-  let finalObj = {};
   return connection("articles")
     .select(
       "articles.author",
@@ -12,15 +10,8 @@ exports.fetchArticle = function(article_id) {
       "articles.created_at",
       "articles.votes"
     )
-    .where(article_id)
-    .then(function([data]) {
-      finalObj = data;
-      return connection("comments")
-        .count({ comment_count: "article_id" })
-        .where(article_id);
-    })
-    .then(function([{ comment_count }]) {
-      finalObj.comment_count = comment_count;
-      return finalObj;
-    });
+    .join("comments", "comments.article_id", "articles.article_id")
+    .count({ comment_count: "comments.article_id" })
+    .groupBy("articles.article_id")
+    .where("articles.article_id", article_id);
 };
