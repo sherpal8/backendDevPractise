@@ -283,7 +283,7 @@ describe("App TDD", () => {
       });
     });
   });
-  describe.only("/api/articles/:article_id/comments", () => {
+  describe("/api/articles/:article_id/comments", () => {
     describe("POST", () => {
       it("returns status 201, along with posted comment with specified properties", () => {
         return request
@@ -307,6 +307,62 @@ describe("App TDD", () => {
               "body"
             );
           });
+      });
+      describe("Error handlers", () => {
+        it("400: When empty argument posted", () => {
+          return request
+            .post("/api/articles/1/comments")
+            .send()
+            .expect(400)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Bad request");
+            });
+        });
+        it("400: When empty object posted", () => {
+          return request
+            .post("/api/articles/1/comments")
+            .send({})
+            .expect(400)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Bad request");
+            });
+        });
+        it("400: When object does not have the two required properties i.e. username and body", () => {
+          return request
+            .post("/api/articles/1/comments")
+            .send({ username: "rogersop" })
+            .expect(400)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Bad request");
+            });
+        });
+        it("400: When object has right properties, but either or both the values are empty", () => {
+          return request
+            .post("/api/articles/1/comments")
+            .send({ username: "", body: "" })
+            .expect(400)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Bad request");
+            });
+        });
+        it("400: When article_id parameter is not a number", () => {
+          return request
+            .post("/api/articles/a/comments")
+            .send({ username: "jessy", body: "hey" })
+            .expect(400)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Bad request");
+            });
+        });
+        it("422: When article_id is non-existant in articles table", () => {
+          return request
+            .post("/api/articles/1000/comments")
+            .send({ username: "jessy", body: "hey" })
+            .expect(422)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Unprocessable entity");
+            });
+        });
       });
     });
     describe("405: Stray methods", () => {

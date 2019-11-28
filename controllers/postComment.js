@@ -1,17 +1,45 @@
-const { sendComment } = require("../models");
+const { sendComment, fetchArticle } = require("../models");
 
 exports.postComment = (req, res, next) => {
   const { article_id } = req.params;
-  const dataObj = req.body;
-  const dataObjCopy = { ...dataObj };
-  dataObjCopy.author = dataObjCopy.username;
+  const { username, body } = req.body;
+  if (!username || !body || username.length === 0 || body.length === 0) {
+    return res.status(400).send({
+      message: "Bad request"
+    });
+  }
+  const dataObjCopy = {
+    ...req.params
+  };
+  dataObjCopy.author = username;
+  dataObjCopy.body = body;
   delete dataObjCopy.username;
   dataObjCopy.article_id = article_id;
-  return sendComment(dataObjCopy)
-    .then(function([comment]) {
-      return res.status(201).send({ comment });
-    })
-    .catch(function(err) {
-      next(err);
+
+  // if article_id is not a number
+  if (/\D+/.test(article_id)) {
+    return res.status(400).send({
+      message: "Bad request"
     });
+  }
+
+  // first, check to see article even exists in 'articles' table
+  return fetchArticle(article_id).then(function(value) {
+    if (value.length === 0) {
+      // if article_id does not exist, status 422
+      return res.status(422).send({
+        message: "Unprocessable entity"
+      });
+    } else {
+      // if article_id exists, to proceed with the seeding of 'comments' schema
+      return sendComment(dataObjCopy)
+        .then(function([comment]) {
+          return res.status(201).send({ comment });
+        })
+        .catch(function(err) {
+          console.log(err);
+          next(err);
+        });
+    }
+  });
 };
