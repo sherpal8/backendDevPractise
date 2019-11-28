@@ -1,11 +1,11 @@
 const express = require("express");
 const usersRouter = express.Router();
-const { getUser } = require("../controllers");
-const { errorHandler405 } = require("../errors");
+const _ = require("../controllers");
+const e = require("../errors");
 
 usersRouter
   .route("/:username")
-  .get(getUser)
-  .all(errorHandler405);
+  .get(_.getUser)
+  .all(e.errorHandler405);
 
 module.exports = { usersRouter };

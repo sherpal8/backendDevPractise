@@ -1,11 +1,12 @@
 const express = require("express");
 const topicsRouter = express.Router();
-const { getTopics } = require("../controllers");
-const { errorHandler405 } = require("../errors");
+const _ = require("../controllers");
+const e = require("../errors");
 
+console.log(typeof _.getTopics);
 topicsRouter
   .route("/")
-  .get(getTopics)
-  .all(errorHandler405);
+  .get(_.getTopics)
+  .all(e.errorHandler405);
 
 module.exports = { topicsRouter };

@@ -274,4 +274,31 @@ describe("App TDD", () => {
       });
     });
   });
+  describe.only("/api/articles/:article_id/comments", () => {
+    describe("POST", () => {
+      it("returns status 201, along with posted comment with specified properties", () => {
+        return request
+          .post("/api/articles/1/comments")
+          .send({ username: "rogersop", body: "amazing article" })
+          .expect(201)
+          .then(function({ body: { comment } }) {
+            expect(
+              comment.comment_id,
+              comment.author,
+              comment.article_id,
+              comment.votes,
+              comment.body
+            ).to.equal(5, "rogersop", 1, 0, "amazing article");
+            expect(comment).to.have.all.keys(
+              "comment_id",
+              "author",
+              "article_id",
+              "votes",
+              "created_at",
+              "body"
+            );
+          });
+      });
+    });
+  });
 });
