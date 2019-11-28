@@ -31,7 +31,7 @@ exports.up = function(knex) {
     .then(function() {
       return knex.schema.hasTable("articles").then(function(exists) {
         if (exists) {
-          console.log("articles table created successfully");
+          // console.log("articles table created successfully");
         }
       });
     });
@@ -46,7 +46,7 @@ exports.down = function(knex) {
     .then(function() {
       return knex.schema.hasTable("articles").then(function(exists) {
         if (!exists) {
-          console.log("articles table deleted successfully");
+          // console.log("articles table deleted successfully");
         }
       });
     });

@@ -30,7 +30,7 @@ exports.up = function(knex) {
     .then(function() {
       return knex.schema.hasTable("comments").then(function(exists) {
         if (exists) {
-          console.log("comments table created successfully");
+          // console.log("comments table created successfully");
         }
       });
     });
@@ -45,7 +45,7 @@ exports.down = function(knex) {
     .then(function() {
       return knex.schema.hasTable("comments").then(function(exists) {
         if (!exists) {
-          console.log("comments table deleted successfully");
+          // console.log("comments table deleted successfully");
         }
       });
     });

@@ -18,7 +18,7 @@ exports.up = function(knex) {
     .then(function() {
       return knex.schema.hasTable("users").then(function(exists) {
         if (exists) {
-          console.log("users table created successfully");
+          // console.log("users table created successfully");
         }
       });
     });
@@ -33,7 +33,7 @@ exports.down = function(knex) {
     .then(function() {
       return knex.schema.hasTable("users").then(function(exists) {
         if (!exists) {
-          console.log("users table deleted successfully");
+          // console.log("users table deleted successfully");
         }
       });
     });

@@ -14,7 +14,7 @@ exports.up = function(knex) {
     .then(function() {
       return knex.schema.hasTable("topics").then(function(exists) {
         if (exists) {
-          console.log("topics table created successfully");
+          // console.log("topics table created successfully");
         }
       });
     });
@@ -29,7 +29,7 @@ exports.down = function(knex) {
     .then(function() {
       return knex.schema.hasTable("topics").then(function(exists) {
         if (!exists) {
-          console.log("topics table deleted successfully");
+          // console.log("topics table deleted successfully");
         }
       });
     });
