@@ -24,22 +24,21 @@ exports.postComment = (req, res, next) => {
   }
 
   // first, check to see article even exists in 'articles' table
-  return fetchArticle(article_id).then(function(value) {
-    if (value.length === 0) {
-      // if article_id does not exist, status 422
-      return res.status(422).send({
-        message: "Unprocessable entity"
-      });
-    } else {
-      // if article_id exists, to proceed with the seeding of 'comments' schema
-      return sendComment(dataObjCopy)
-        .then(function([comment]) {
-          return res.status(201).send({ comment });
-        })
-        .catch(function(err) {
-          console.log(err);
-          next(err);
+  return fetchArticle(article_id)
+    .then(function(value) {
+      if (value.length === 0) {
+        // if article_id does not exist, status 422
+        return res.status(422).send({
+          message: "Unprocessable entity"
         });
-    }
-  });
+      } else {
+        // if article_id exists, to proceed with the seeding of 'comments' schema
+        return sendComment(dataObjCopy).then(function([comment]) {
+          return res.status(201).send({ comment });
+        });
+      }
+    })
+    .catch(function(err) {
+      next(err);
+    });
 };

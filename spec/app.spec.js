@@ -365,6 +365,20 @@ describe("App TDD", () => {
         });
       });
     });
+    describe.only("GET", () => {
+      it("returns with 200. Also, array of comment-objects, each with specified properties", () => {
+        return request
+          .get("/api/articles/1/comments")
+          .expect(200)
+          .then(function({ body }) {
+            expect(Array.isArray(body)).to.be.true;
+            expect(body.length).to.equal(2);
+            body.forEach(obj => {
+              expect(obj).to.have.all.keys("h");
+            });
+          });
+      });
+    });
     describe("405: Stray methods", () => {
       it("405 for when methods are not allowed", () => {
         const methods = ["delete", "put", "patch"];

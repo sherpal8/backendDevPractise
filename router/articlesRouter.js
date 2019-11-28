@@ -6,6 +6,7 @@ const e = require("../errors");
 articlesRouter
   .route("/:article_id/comments")
   .post(_.postComment)
+  .get(_.getArticleComments)
   .all(e.errorHandler405);
 
 articlesRouter
