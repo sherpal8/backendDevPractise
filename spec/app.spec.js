@@ -258,6 +258,15 @@ describe("App TDD", () => {
               expect(message).to.equal("Bad request");
             });
         });
+        it("400: When attempt to patch with nothing i.e. empty string", () => {
+          return request
+            .patch("/api/articles/1")
+            .send({ inc_votes: "" })
+            .expect(400)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("Bad request");
+            });
+        });
       });
     });
     describe("405: Stray methods", () => {
@@ -298,6 +307,19 @@ describe("App TDD", () => {
               "body"
             );
           });
+      });
+    });
+    describe("405: Stray methods", () => {
+      it("405 for when methods are not allowed", () => {
+        const methods = ["delete", "put", "patch"];
+        const promises = methods.map(method => {
+          return request[method]("/api/articles/1/comments")
+            .expect(405)
+            .then(({ body: { message } }) => {
+              expect(message).to.equal("Method not allowed");
+            });
+        });
+        return Promise.all(promises);
       });
     });
   });

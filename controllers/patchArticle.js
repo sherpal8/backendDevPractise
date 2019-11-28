@@ -5,7 +5,7 @@ exports.patchArticle = (req, res, next) => {
   const { inc_votes } = req.body;
 
   let testVal = inc_votes < 0 ? -inc_votes : inc_votes;
-  if (/\D+/.test(testVal)) {
+  if (/\D+/.test(testVal) || testVal === "") {
     return res.status(400).send({ message: "Bad request" });
   }
 
