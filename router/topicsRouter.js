@@ -3,7 +3,6 @@ const topicsRouter = express.Router();
 const _ = require("../controllers");
 const e = require("../errors");
 
-console.log(typeof _.getTopics);
 topicsRouter
   .route("/")
   .get(_.getTopics)

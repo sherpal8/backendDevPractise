@@ -363,24 +363,114 @@ describe("App TDD", () => {
               expect(message).to.equal("Unprocessable entity");
             });
         });
+        it("422: when author/username is not in the users table/ register", () => {
+          return request
+            .post("/api/articles/1/comments")
+            .send({ username: "nonExistentUser", body: "hey" })
+            .expect(422)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Unprocessable entity");
+            });
+        });
       });
     });
-    describe.only("GET", () => {
-      it("returns with 200. Also, array of comment-objects, each with specified properties", () => {
+    describe("GET", () => {
+      // to increase variety of articles in test DB for better testing
+      const populateComments = () => {
         return request
-          .get("/api/articles/1/comments")
-          .expect(200)
-          .then(function({ body }) {
-            expect(Array.isArray(body)).to.be.true;
-            expect(body.length).to.equal(2);
-            body.forEach(obj => {
-              expect(obj).to.have.all.keys("h");
-            });
+          .post("/api/articles/1/comments")
+          .send({ username: "rogersop", body: "so inspiring right" })
+          .then(function() {
+            return request
+              .post("/api/articles/1/comments")
+              .send({ username: "icellusedkars", body: "feeling blessed" });
           });
+      };
+      it("returns with 200. Also, array of comment-objects, each with specified properties & values", () => {
+        return populateComments().then(function() {
+          return request
+            .get("/api/articles/1/comments?sort_by=created_at&order_by=desc")
+            .expect(200)
+            .then(function({ body: { comments } }) {
+              expect(Array.isArray(comments)).to.be.true;
+              expect(comments.length).to.equal(3);
+              comments.forEach((obj, i) => {
+                expect(obj).to.have.all.keys(
+                  "comment_id",
+                  "votes",
+                  "created_at",
+                  "author",
+                  "body"
+                );
+                if (i === 0) {
+                  expect(obj).to.eql({
+                    comment_id: 1,
+                    votes: 16,
+                    created_at: "Wed, 22 Nov 2017 12:36:03 GMT",
+                    author: "butter_bridge",
+                    body:
+                      "Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!"
+                  });
+                }
+              });
+            });
+        });
+      });
+      it("when inappapriate values given for sort_by or order_by, default values assigned", () => {
+        return populateComments().then(function() {
+          return request
+            .get("/api/articles/1/comments?sort_by=watcha&order_by=schwepps")
+            .expect(200)
+            .then(function({ body: { comments } }) {
+              expect(comments[0].created_at).to.equal(
+                "Wed, 22 Nov 2017 12:36:03 GMT"
+              );
+            });
+        });
+      });
+      it("when ascending order_by given, position of objects will be reversed", () => {
+        return populateComments().then(function() {
+          return request
+            .get("/api/articles/1/comments?sort_by=created_at&order_by=asc")
+            .expect(200)
+            .then(function({ body: { comments } }) {
+              expect(comments[2].created_at).to.equal(
+                "Wed, 22 Nov 2017 12:36:03 GMT"
+              );
+            });
+        });
+      });
+      it("when sort_by given a different authorised value, the position of objects will be changed", () => {
+        return populateComments().then(function() {
+          return request
+            .get("/api/articles/1/comments?sort_by=comment_id&order_by=desc")
+            .expect(200)
+            .then(function({ body: { comments } }) {
+              expect(comments[0].comment_id).to.equal(6);
+            });
+        });
+      });
+      describe("Error handlers", () => {
+        it("400: when article_id not a number", () => {
+          return request
+            .get("/api/articles/a/comments?sort_by=created_at&order_by=desc")
+            .expect(400)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Bad request");
+            });
+        });
+        it("422: when article_id does not exist in articles table", () => {
+          return request
+            .get("/api/articles/1000/comments?sort_by=created_at&order_by=desc")
+            .expect(422)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Unprocessable entity");
+            });
+        });
       });
     });
     describe("405: Stray methods", () => {
-      it("405 for when methods are not allowed", () => {
+      it("405: for when methods are not allowed", () => {
         const methods = ["delete", "put", "patch"];
         const promises = methods.map(method => {
           return request[method]("/api/articles/1/comments")
