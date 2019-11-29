@@ -4,6 +4,7 @@ const { getArticle } = require("./getArticle");
 const { patchArticle } = require("./patchArticle");
 const { postComment } = require("./postComment");
 const { getArticleComments } = require("./getArticleComments");
+const { getManyArticles } = require("./getManyArticles");
 
 module.exports = {
   getTopics,
@@ -11,5 +12,6 @@ module.exports = {
   getArticle,
   patchArticle,
   postComment,
-  getArticleComments
+  getArticleComments,
+  getManyArticles
 };

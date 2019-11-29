@@ -15,4 +15,9 @@ articlesRouter
   .patch(_.patchArticle)
   .all(e.errorHandler405);
 
+articlesRouter
+  .route("/")
+  .get(_.getManyArticles)
+  .all(e.errorHandler405);
+
 module.exports = { articlesRouter };

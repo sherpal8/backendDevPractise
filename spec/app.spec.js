@@ -483,4 +483,42 @@ describe("App TDD", () => {
       });
     });
   });
+  describe("/api/articles", () => {
+    describe("GET", () => {
+      it("status 200, with an array of article-objects, each with specified properties and corresponding values", () => {
+        return request
+          .get("/api/articles")
+          .expect(200)
+          .then(function({ body: { articles } }) {
+            expect(Array.isArray(articles)).to.be.true;
+            expect(articles.length).to.equal(12);
+            articles.forEach(function(obj, index) {
+              expect(obj).to.have.all.keys(
+                "author",
+                "title",
+                "article_id",
+                "topic",
+                "created_at",
+                "votes",
+                "comment_count"
+              );
+              if (index === 0) {
+                expect(obj).to.eql({
+                  author: "butter_bridge",
+                  title: "Living in the shadow of a great man",
+                  article_id: 1,
+                  topic: "mitch",
+                  created_at: "Thu, 15 Nov 2018 12:21:54 GMT",
+                  votes: 100,
+                  comment_count: 1
+                });
+              }
+            });
+          });
+      });
+      // describe("Error handlers", () => {
+      //   it("", () => {});
+      // });
+    });
+  });
 });
