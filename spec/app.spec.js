@@ -670,4 +670,16 @@ describe("App TDD", () => {
       });
     });
   });
+  describe.only("/api/comments/:comment_id", () => {
+    describe("PATCH", () => {
+      it("200 with attempted comment patch", () => {
+        return request
+          .patch("/api/comments/:comment_id")
+          .expect(200)
+          .then(function({ body: { comment } }) {
+            expect(comment).to.eql({});
+          });
+      });
+    });
+  });
 });
