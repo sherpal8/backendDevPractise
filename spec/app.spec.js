@@ -484,7 +484,7 @@ describe("App TDD", () => {
     });
   });
   describe("/api/articles", () => {
-    describe("GET", () => {
+    describe.only("GET", () => {
       it("status 200, with an array of article-objects, each with specified properties and corresponding values", () => {
         return request
           .get("/api/articles")
@@ -516,6 +516,47 @@ describe("App TDD", () => {
             });
           });
       });
+      it("if sort_by argument given, articles sorted by valid column and by default in a descending order", () => {
+        return request
+          .get("/api/articles?sort_by=article_id")
+          .expect(200)
+          .then(function({ body: { articles } }) {
+            expect(articles[0], articles[4]).to.eql({});
+          });
+      });
+      it("if unauthorised sort_by argument given, articles sorted by default by created_at", () => {
+        return request
+          .get("/api/articles?sort_by=randomEntry")
+          .expect(200)
+          .then(function({ body: { articles } }) {
+            expect(articles[0], articles[4]).to.eql({});
+          });
+      });
+      it("if a different but valid sort_by argument given, articles sorted to that argument", () => {
+        return request
+          .get("/api/articles?sort_by=randomEntry")
+          .expect(200)
+          .then(function({ body: { articles } }) {
+            expect(articles[0], articles[4]).to.eql({});
+          });
+      });
+      it("if order_by argument given is ascending, then order of articles revers", () => {
+        return request
+          .get("/api/articles?sort_by=article_id&order_by=asc")
+          .expect(200)
+          .then(function({ body: { articles } }) {
+            expect(articles[0], articles[4]).to.eql({});
+          });
+      });
+      it("if unauthorised order_by argument given, by default in descending order", () => {
+        return request
+          .get("/api/articles?sort_by=article_id&order_by=asc")
+          .expect(200)
+          .then(function({ body: { articles } }) {
+            expect(articles[0], articles[4]).to.eql({});
+          });
+      });
+
       // describe("Error handlers", () => {
       //   it("", () => {});
       // });
