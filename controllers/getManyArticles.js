@@ -15,6 +15,9 @@ exports.getManyArticles = (req, res, next) => {
   order_by = acceptedOrderBy.includes(order_by) ? order_by : "desc";
   return fetchArticle(null, sort_by, order_by, author, topic)
     .then(function(articles) {
+      if (articles.length === 0) {
+        return res.status(404).send({ message: "Page not found" });
+      }
       return res.status(200).send({ articles });
     })
     .catch(function(err) {

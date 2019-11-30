@@ -25,5 +25,11 @@ exports.fetchArticle = function(
       if (sort_by || (order_by && article_id === null)) {
         query.orderBy(`articles.${sort_by}`, order_by);
       }
+      if (author) {
+        query.where("articles.author", author);
+      }
+      if (topic) {
+        query.where("articles.topic", topic);
+      }
     });
 };

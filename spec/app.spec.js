@@ -572,10 +572,93 @@ describe("App TDD", () => {
             );
           });
       });
+      it("if a query argument of `author` value given, filters articles by the author of that value", () => {
+        return request
+          .get("/api/articles?author=butter_bridge")
+          .expect(200)
+          .then(function({ body: { articles } }) {
+            expect(articles).to.eql([
+              {
+                author: "butter_bridge",
+                title: "Moustache",
+                article_id: 12,
+                topic: "mitch",
+                created_at: "Tue, 26 Nov 1974 12:21:54 GMT",
+                votes: null,
+                comment_count: 0
+              },
+              {
+                author: "butter_bridge",
+                title: "Living in the shadow of a great man",
+                article_id: 1,
+                topic: "mitch",
+                created_at: "Thu, 15 Nov 2018 12:21:54 GMT",
+                votes: 100,
+                comment_count: 1
+              },
+              {
+                author: "butter_bridge",
+                title: "They're not exactly dogs, are they?",
+                article_id: 9,
+                topic: "mitch",
+                created_at: "Sun, 23 Nov 1986 12:21:54 GMT",
+                votes: null,
+                comment_count: 1
+              }
+            ]);
+          });
+      });
+      it("if query argument of `topic` value given, filters articles by the topic of that value", () => {
+        return request
+          .get("/api/articles?topic=cats")
+          .expect(200)
+          .then(function({ body: { articles } }) {
+            expect(articles).to.eql([
+              {
+                author: "rogersop",
+                title: "UNCOVERED: catspiracy to bring down democracy",
+                article_id: 5,
+                topic: "cats",
+                created_at: "Tue, 19 Nov 2002 12:21:54 GMT",
+                votes: null,
+                comment_count: 1
+              }
+            ]);
+          });
+      });
 
-      // describe("Error handlers", () => {
-      //   it("", () => {});
-      // });
+      describe("Error handlers", () => {
+        // it("", () => {});
+        it("404: if query argument `author` does not exist in database, returns `Page not found`", () => {
+          return request
+            .get("/api/articles?author=nonExistent")
+            .expect(404)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Page not found");
+            });
+        });
+        it("404: if query argument `topic` does not exist in database, returns `Page not found`", () => {
+          return request
+            .get("/api/articles?topic=nonExistent")
+            .expect(404)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Page not found");
+            });
+        });
+      });
+    });
+    describe.only("405: Stray methods", () => {
+      it("405: when stray methods attempted", () => {
+        const unauthorisedMethods = ["put", "post", "patch", "delete"];
+        const unauthorisedPromises = unauthorisedMethods.map(function(method) {
+          return request[method]("/api/articles")
+            .expect(405)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Method not allowed");
+            });
+        });
+        return Promise.all(unauthorisedPromises);
+      });
     });
   });
 });
