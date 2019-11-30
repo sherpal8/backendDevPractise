@@ -484,7 +484,7 @@ describe("App TDD", () => {
     });
   });
   describe("/api/articles", () => {
-    describe.only("GET", () => {
+    describe("GET", () => {
       it("status 200, with an array of article-objects, each with specified properties and corresponding values", () => {
         return request
           .get("/api/articles")
@@ -504,13 +504,14 @@ describe("App TDD", () => {
               );
               if (index === 0) {
                 expect(obj).to.eql({
-                  author: "butter_bridge",
-                  title: "Living in the shadow of a great man",
-                  article_id: 1,
+                  author: "rogersop",
+                  title:
+                    "Seven inspirational thought leaders from Manchester UK",
+                  article_id: 10,
                   topic: "mitch",
-                  created_at: "Thu, 15 Nov 2018 12:21:54 GMT",
-                  votes: 100,
-                  comment_count: 1
+                  created_at: "Wed, 24 Nov 1982 12:21:54 GMT",
+                  votes: null,
+                  comment_count: 0
                 });
               }
             });
@@ -521,7 +522,10 @@ describe("App TDD", () => {
           .get("/api/articles?sort_by=article_id")
           .expect(200)
           .then(function({ body: { articles } }) {
-            expect(articles[0], articles[4]).to.eql({});
+            expect(
+              articles[0].article_id,
+              articles[articles.length - 1].article_id
+            ).to.equal(12, 1);
           });
       });
       it("if unauthorised sort_by argument given, articles sorted by default by created_at", () => {
@@ -529,31 +533,43 @@ describe("App TDD", () => {
           .get("/api/articles?sort_by=randomEntry")
           .expect(200)
           .then(function({ body: { articles } }) {
-            expect(articles[0], articles[4]).to.eql({});
+            expect(
+              articles[0].created_at,
+              articles[articles.length - 1].created_at
+            ).to.equal(
+              "Wed, 24 Nov 1982 12:21:54 GMT",
+              "Fri, 20 Nov 1998 12:21:54 GMT"
+            );
           });
       });
       it("if a different but valid sort_by argument given, articles sorted to that argument", () => {
         return request
-          .get("/api/articles?sort_by=randomEntry")
+          .get("/api/articles?sort_by=votes")
           .expect(200)
           .then(function({ body: { articles } }) {
-            expect(articles[0], articles[4]).to.eql({});
+            expect(articles[0].votes).to.equal(100);
           });
       });
-      it("if order_by argument given is ascending, then order of articles revers", () => {
+      it("if order_by argument given is ascending, then the order of articles is reversed", () => {
         return request
           .get("/api/articles?sort_by=article_id&order_by=asc")
           .expect(200)
           .then(function({ body: { articles } }) {
-            expect(articles[0], articles[4]).to.eql({});
+            expect(articles[0].article_id, articles[11].aarticle_id).to.equal(
+              1,
+              12
+            );
           });
       });
       it("if unauthorised order_by argument given, by default in descending order", () => {
         return request
-          .get("/api/articles?sort_by=article_id&order_by=asc")
+          .get("/api/articles?sort_by=article_id&order_by=unauthorisedOrder")
           .expect(200)
           .then(function({ body: { articles } }) {
-            expect(articles[0], articles[4]).to.eql({});
+            expect(articles[0].article_id, articles[11].article_id).to.equal(
+              12,
+              1
+            );
           });
       });
 
