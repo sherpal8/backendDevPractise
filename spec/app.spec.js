@@ -630,7 +630,9 @@ describe("App TDD", () => {
       describe("Error handlers", () => {
         it("400: if unauthorised query attempted", () => {
           return request
-            .get("/api/articles?nonExistentQuery=nonExistent")
+            .get(
+              "/api/articles?nonExistentQuery=nonExistent&sort_by=article_id"
+            )
             .expect(400)
             .then(function({ body: { message } }) {
               expect(message).to.equal("Bad request");

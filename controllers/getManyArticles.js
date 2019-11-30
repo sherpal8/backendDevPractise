@@ -4,13 +4,15 @@ exports.getManyArticles = (req, res, next) => {
   let { sort_by, order_by, author, topic } = req.query;
 
   // ensure only authories queries allowed
-  const authorisedQueries = ["sort_by", "order_by", "author", "topic"];
   const queryEntered = Object.keys(req.query);
-  const unauthorisedQueries = queryEntered.filter(function(query) {
-    return !authorisedQueries.includes(query);
-  });
-  if (unauthorisedQueries.length > 0) {
-    return res.status(400).send({ message: "Bad request" });
+  if (queryEntered.length > 0) {
+    const authorisedQueries = ["sort_by", "order_by", "author", "topic"];
+    const unauthorisedQuery = queryEntered.find(function(query) {
+      return !authorisedQueries.includes(query);
+    });
+    if (unauthorisedQuery && unauthorisedQuery.length > 0) {
+      return res.status(400).send({ message: "Bad request" });
+    }
   }
 
   const acceptedSortBy = [
