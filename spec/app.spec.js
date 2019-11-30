@@ -670,7 +670,7 @@ describe("App TDD", () => {
       });
     });
   });
-  describe.only("/api/comments/:comment_id", () => {
+  describe("/api/comments/:comment_id", () => {
     describe("PATCH", () => {
       it("200 with attempted comment patch", () => {
         return request

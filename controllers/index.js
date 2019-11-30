@@ -5,6 +5,8 @@ const { patchArticle } = require("./patchArticle");
 const { postComment } = require("./postComment");
 const { getArticleComments } = require("./getArticleComments");
 const { getManyArticles } = require("./getManyArticles");
+const { patchComment } = -require("./patchComment");
+const { deleteComment } = require("./deleteComment");
 
 module.exports = {
   getTopics,
@@ -13,5 +15,7 @@ module.exports = {
   patchArticle,
   postComment,
   getArticleComments,
-  getManyArticles
+  getManyArticles,
+  patchComment,
+  deleteComment
 };

@@ -3,6 +3,10 @@ const commentsRouter = express.Router();
 const _ = require("../controllers");
 const e = require("../errors");
 
-commentsRouter.route("/").all(e.errorHandler405);
+commentsRouter
+  .route("/:comment_id")
+  .patch(_.patchComment)
+  .del(_.deleteComment)
+  .all(e.errorHandler405);
 
 module.exports = { commentsRouter };
