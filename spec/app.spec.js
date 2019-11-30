@@ -561,7 +561,7 @@ describe("App TDD", () => {
             );
           });
       });
-      it("if unauthorised order_by argument given, by default in descending order", () => {
+      it("if unauthorised order_by argument given, then default to descending order", () => {
         return request
           .get("/api/articles?sort_by=article_id&order_by=unauthorisedOrder")
           .expect(200)
@@ -628,7 +628,14 @@ describe("App TDD", () => {
       });
 
       describe("Error handlers", () => {
-        // it("", () => {});
+        it("400: if unauthorised query attempted", () => {
+          return request
+            .get("/api/articles?nonExistentQuery=nonExistent")
+            .expect(400)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Bad request");
+            });
+        });
         it("404: if query argument `author` does not exist in database, returns `Page not found`", () => {
           return request
             .get("/api/articles?author=nonExistent")
@@ -647,7 +654,7 @@ describe("App TDD", () => {
         });
       });
     });
-    describe.only("405: Stray methods", () => {
+    describe("405: Stray methods", () => {
       it("405: when stray methods attempted", () => {
         const unauthorisedMethods = ["put", "post", "patch", "delete"];
         const unauthorisedPromises = unauthorisedMethods.map(function(method) {
