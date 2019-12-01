@@ -4,13 +4,12 @@ const { usersRouter } = require("./usersRouter");
 const { articlesRouter } = require("./articlesRouter");
 const { commentsRouter } = require("./commentsRouter");
 const { errorHandler405 } = require("../errors");
+const _ = require("../controllers");
 apiRouter = express.Router();
 
 apiRouter
   .route("/")
-  .get((req, res, next) => {
-    res.status(200).send({ message: "Welcome to Vital News" });
-  })
+  .get(_.getEndpoints)
   .all(errorHandler405);
 
 apiRouter.use("/topics", topicsRouter);

@@ -7,6 +7,7 @@ const { getArticleComments } = require("./getArticleComments");
 const { getManyArticles } = require("./getManyArticles");
 const { patchComment } = require("./patchComment");
 const { deleteComment } = require("./deleteComment");
+const { getEndpoints } = require("./getEndpoints");
 
 module.exports = {
   getTopics,
@@ -17,5 +18,6 @@ module.exports = {
   getArticleComments,
   getManyArticles,
   patchComment,
-  deleteComment
+  deleteComment,
+  getEndpoints
 };

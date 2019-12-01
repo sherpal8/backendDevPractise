@@ -48,6 +48,7 @@ This is a backend skill development project. The aim is to create and seed vario
 
 ### These are the endpoints created:
 
+- GET /api
 - GET /api/topics
 - GET /api/users/:username
 - GET /api/articles/:article_id
@@ -57,7 +58,6 @@ This is a backend skill development project. The aim is to create and seed vario
 - GET /api/articles
 - PATCH /api/comments/:comment_id
 - DELETE /api/comments/:comment_id
-- GET /api
 
 ### Route Requirements (referenced from Northcoders)
 
@@ -81,6 +81,14 @@ All endpoints should send the below responses in an object, with a key name of w
   ]
 }
 ```
+
+```http
+GET /api
+```
+
+#### Responds with
+
+- a json with endpoints for the API.
 
 ---
 

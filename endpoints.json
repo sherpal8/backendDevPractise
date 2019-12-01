@@ -1,5 +1,5 @@
 {
-  "endpoints": {
+  "Endpoints for the backendDevPractise API": {
     "GET /api": {
       "description": "Serves up a json representation of all the available endpoints of the API backendDevPractise"
     },
