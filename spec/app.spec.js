@@ -672,13 +672,127 @@ describe("App TDD", () => {
   });
   describe("/api/comments/:comment_id", () => {
     describe("PATCH", () => {
-      it("200 with attempted comment patch", () => {
+      it("patch returns status 200. Votes increases with positive inc_votes value. Comment object with specific properties and updated value returned", () => {
         return request
-          .patch("/api/comments/:comment_id")
+          .patch("/api/comments/1")
+          .send({ inc_votes: 1 })
           .expect(200)
           .then(function({ body: { comment } }) {
-            expect(comment).to.eql({});
+            expect(comment).to.eql({
+              comment_id: 1,
+              author: "butter_bridge",
+              article_id: 1,
+              votes: 17,
+              created_at: "Wed, 22 Nov 2017 12:36:03 GMT",
+              body:
+                "Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!"
+            });
+            expect(comment).to.have.all.keys(
+              "comment_id",
+              "author",
+              "article_id",
+              "votes",
+              "created_at",
+              "body"
+            );
           });
+      });
+      it("when negative inc_votes value given, votes value reduced", () => {
+        return request
+          .patch("/api/comments/1")
+          .send({ inc_votes: -2 })
+          .expect(200)
+          .then(function({ body: { comment } }) {
+            expect(comment.votes).to.equal(14);
+          });
+      });
+      describe("Error handlers", () => {
+        it("400: when attempt to patch with non-number", () => {
+          return request
+            .patch("/api/comments/1")
+            .send({ inc_votes: "%" })
+            .expect(400)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Bad request");
+            });
+        });
+        it("400: when attempt to patch with empty string", () => {
+          return request
+            .patch("/api/comments/1")
+            .send({ inc_votes: "" })
+            .expect(400)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Bad request");
+            });
+        });
+        it("When attempt to patch with null", () => {
+          return request
+            .patch("/api/comments/1")
+            .send({ inc_votes: null })
+            .expect(400)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Bad request");
+            });
+        });
+        it("400: when comment_id not a number", () => {
+          return request
+            .patch("/api/comments/a")
+            .send({ inc_votes: 2 })
+            .expect(400)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Bad request");
+            });
+        });
+        it("422: when attempt to patch non-existent comment_id", () => {
+          return request
+            .patch("/api/comments/1000")
+            .send({ inc_votes: 2 })
+            .expect(422)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Unprocessable entity");
+            });
+        });
+      });
+    });
+    describe("DELETE", () => {
+      it("204 with delete function, returning 'No content'", () => {
+        return request
+          .delete("/api/comments/4")
+          .expect(204)
+          .then(function({ body }) {
+            expect(body).to.eql({});
+          });
+      });
+      describe("Error handlers", () => {
+        it("400: If comment_id entered is not a number", () => {
+          return request
+            .delete("/api/comments/notANumber")
+            .expect(400)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Bad request");
+            });
+        });
+        it("422: If comment_id does not exist in database for deletion", () => {
+          return request
+            .delete("/api/comments/1000")
+            .expect(422)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Unprocessable entity");
+            });
+        });
+      });
+    });
+    describe("405: Stray methods", () => {
+      it("405: If unauthorised method attempted", () => {
+        const unauthorisedMethods = ["put", "post", "get"];
+        const promisesArr = unauthorisedMethods.map(function(method) {
+          return request[method]("/api/comments/1")
+            .expect(405)
+            .then(function({ body: { message } }) {
+              expect(message).to.equal("Method not allowed");
+            });
+        });
+        return Promise.all(promisesArr);
       });
     });
   });

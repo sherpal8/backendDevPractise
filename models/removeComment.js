@@ -1,5 +1,7 @@
 const { connection } = require("../connection");
 
-exports.removeComment = () => {
-  return;
+exports.removeComment = comment_id => {
+  return connection("comments")
+    .del()
+    .where(comment_id);
 };

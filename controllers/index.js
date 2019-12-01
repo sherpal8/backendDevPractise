@@ -5,7 +5,7 @@ const { patchArticle } = require("./patchArticle");
 const { postComment } = require("./postComment");
 const { getArticleComments } = require("./getArticleComments");
 const { getManyArticles } = require("./getManyArticles");
-const { patchComment } = -require("./patchComment");
+const { patchComment } = require("./patchComment");
 const { deleteComment } = require("./deleteComment");
 
 module.exports = {
