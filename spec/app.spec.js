@@ -128,14 +128,12 @@ describe("App TDD", () => {
           .expect(200)
           .then(function({ body }) {
             expect(body).to.eql({
-              user: [
-                {
-                  username: "rogersop",
-                  avatar_url:
-                    "https://avatars2.githubusercontent.com/u/24394918?s=400&v=4",
-                  name: "paul"
-                }
-              ]
+              user: {
+                username: "rogersop",
+                avatar_url:
+                  "https://avatars2.githubusercontent.com/u/24394918?s=400&v=4",
+                name: "paul"
+              }
             });
           });
       });

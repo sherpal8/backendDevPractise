@@ -42,7 +42,7 @@ This is a backend skill development project. The aim is to create and seed vario
 
 - npm i express
 - npm i -D nodemon supertest chai-sorted
-- use insomnia to make requests to view data
+- use Insomnia to make variety of requests to view output of production database
 - test driven development utilising mocha framework and chai assertations
 - keep endpoints RESTful
 
