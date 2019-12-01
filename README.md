@@ -190,7 +190,7 @@ GET /api/articles/:article_id/comments
 #### Accepts queries
 
 - `sort_by`, which sorts the comments by any valid column (defaults to created_at)
-- `order`, which can be set to `asc` or `desc` for ascending or descending (defaults to descending)
+- `order_by`, which can be set to `asc` or `desc` for ascending or descending (defaults to descending)
 
 ---
 
@@ -212,7 +212,7 @@ GET /api/articles
 #### Should accept queries
 
 - `sort_by`, which sorts the articles by any valid column (defaults to date)
-- `order`, which can be set to `asc` or `desc` for ascending or descending (defaults to descending)
+- `order_by`, which can be set to `asc` or `desc` for ascending or descending (defaults to descending)
 - `author`, which filters the articles by the username value specified in the query
 - `topic`, which filters the articles by the topic value specified in the query
 
