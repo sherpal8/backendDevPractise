@@ -59,9 +59,9 @@ This is a backend skill development project. The aim is to create and seed vario
 - DELETE /api/comments/:comment_id
 - GET /api
 
-### Route Requirements
+### Route Requirements (referenced from Northcoders)
 
-_**All of endpoints should send the below responses in an object, with a key name of what it is that being sent. E.g.**_
+All endpoints should send the below responses in an object, with a key name of what it is that being sent. e.g.
 
 ```json
 {
@@ -124,7 +124,7 @@ GET /api/articles/:article_id
   - `topic`
   - `created_at`
   - `votes`
-  - `comment_count` which is the total count of all the comments with this article_id - you should make use of knex queries in order to achieve this
+  - `comment_count` which is the total count of all the comments with this article_id. To make use of knex queries in order to achieve this
 
 ---
 
@@ -199,7 +199,7 @@ GET /api/articles
   - `topic`
   - `created_at`
   - `votes`
-  - `comment_count` which is the total count of all the comments with this article_id - you should make use of knex queries in order to achieve this
+  - `comment_count` which is the total count of all the comments with this article_id. To make use of knex queries in order to achieve this
 
 #### Should accept queries
 
