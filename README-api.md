@@ -4,15 +4,15 @@ backendDevPractise is an application. This application is to retrieve articles a
 **Prerequisites**
 To get started, install the following as below via npm installation.
 
-#### dependencies:
+##### Dependencies:
 
-1. pg (postgres)
+1. pg (i.e. postgres)
 2. sqlite3
 3. express
 4. knex
 5. cors (i.e. Corss-Origin-Resource-Sharing)
 
-#### dev dependencies:
+##### Dev dependencies:
 
 1. chai
 2. mocha
