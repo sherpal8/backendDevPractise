@@ -1,6 +1,12 @@
 # Project: backendDevPractise
 
-This is a backend skill development project. The aim is to create and seed various databases in different environments. Then, the ability to retrieve it.
+This document is a general explanation of this project was completed. This is for the purpose of the ease of reproducibility for future projects.
+
+For information on this API specifically, please refer to README-api.md.
+
+### Objective:
+
+This is a backend skills development project. The aim is to create and seed various databases in different environments. Then, the ability to retrieve the data using routers, controllers and models. This project has been a Test Driven Development.
 
 ### Environments considered:
 
@@ -45,6 +51,8 @@ This is a backend skill development project. The aim is to create and seed vario
 - use Insomnia to make variety of requests to view output of production database
 - test driven development utilising mocha framework and chai assertations
 - keep endpoints RESTful
+- ensure to use `express().use(express.json())` in app.js as it parses incoming json data
+- also `express().use(cors())` to allow for Cross-Origin-Resource-Sharing during front-end development
 
 ### These are the endpoints created:
 
@@ -251,3 +259,7 @@ DELETE /api/comments/:comment_id
 #### Responds with
 
 - status 204 and no content
+
+### Hosting
+
+Hosting is done via deployment to Heroku, with access to the free PG database on Heroku.

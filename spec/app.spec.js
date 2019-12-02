@@ -64,11 +64,12 @@ describe("App TDD", () => {
   describe("/api", () => {
     describe("GET", () => {
       it("responds 200 with 'Welcome to Vital News", () => {
+        const endpointsData = require("../endpoints.json");
         return request
           .get("/api")
           .expect(200)
-          .then(function({ body: { message } }) {
-            expect(message).to.equal("Welcome to Vital News");
+          .then(function({ body }) {
+            expect(body).to.eql(endpointsData);
           });
       });
     });
