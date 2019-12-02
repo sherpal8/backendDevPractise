@@ -4,14 +4,22 @@
   "description": "Create backend database to be deployed to Heroku",
   "main": "app.js",
   "scripts": {
+    "start": "node listen.js",
     "viewTables": "psql -f db/viewSchemaeData.sql > output.txt",
     "testUtils": "mocha spec/utils.spec.js",
     "test": "mocha spec/app.spec.js",
     "dev": "nodemon listen.js",
-    "repopulateDB": "knex migrate:rollback && knex migrate:latest && knex seed:run"
+    "repopulateDB": "knex migrate:rollback && knex migrate:latest && knex seed:run",
+    "seed-test-DB": "NODE_ENV=test knex seed:run",
+    "seed-dev-DB": "NODE_ENV=development knex seed:run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sherpal8/backendDevPractise.git"
   },
   "author": "Sherpal Singh",
   "license": "ISC",
+  "homepage": "https://github.com/sherpal8/backendDevPractise#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
