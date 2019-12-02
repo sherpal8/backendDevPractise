@@ -1,7 +1,7 @@
-**\*\* Project Title \*\***
+**\*\* `Project Title` \*\***
 backendDevPractise is an application. This application is to retrieve articles and comments from Northcoders news. It utilises PostGres for access to its secure database. Also, for the purpose of testing, sqlite3 was used as the database of choice.
 
-`**Prerequisites**`
+**`Prerequisites`**
 To get started, install the following as below via npm installation.
 
 ##### Dependencies:
@@ -20,7 +20,7 @@ To get started, install the following as below via npm installation.
 4. supertest
 5. nodemon
 
-`**Installation**`
+**`Installation`**
 Install the software above. Then run the command below on your CLI:
 \$ npm run repopulateDB
 
@@ -37,7 +37,7 @@ Note: The test database of sqlite3 will be autopopulated with the command /\$ np
 Check inside the ./spec folder for files for both tests.
 The tests utilise mocha, chai, supertest, chai-sorted.
 
-`**Other CLI commands available**`
+**`Other CLI commands available`**
 
 - \$ npm run viewTables (output of production schemae in ./output.txt)
 
@@ -45,13 +45,13 @@ The tests utilise mocha, chai, supertest, chai-sorted.
 
 - \$ npm run repopulateDB (to allow migration rollback, then migrate latest, and finally the re-seeding of PG production database should the need arise)
 
-`**Author**`
+**`Author`**
 Sherpal Singh.
 
-`**License**`
+**`License`**
 Project licensed under MIT License.
 
-`**Acknowledgements**`
+**`Acknowledgements`**
 To Northcoders, Leeds for the ready-to-use raw data and where all my foundational knowledge was received.
 To Plural Sight for the more advanced knowledge received.
 To the staff at One Tech Hub, Aberdeen who have made it possible to work in a conducive environment.
