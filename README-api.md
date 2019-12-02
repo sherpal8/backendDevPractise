@@ -60,4 +60,4 @@ Project licensed under MIT License.
 **`Acknowledgements`**
 To Northcoders, Leeds for the ready-to-use raw data and where all my foundational knowledge was received.
 To Plural Sight for the more advanced knowledge received.
-To the staff at One Tech Hub, Aberdeen who have made it possible to work in a conducive environment.
+To the staff at One Tech Hub, Aberdeen who have made it possible for me to work in a conducive environment.
