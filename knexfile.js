@@ -2,6 +2,7 @@
 
 const { username, password } = require("./config.js");
 let ENV = process.env.NODE_ENV || "development";
+const { DB_URL } = process.env;
 
 const baseConfig = {
   migrations: {
@@ -34,6 +35,10 @@ const customConfig = {
       username,
       password
     }
+  },
+
+  production: {
+    connection: `${DB_URL}?ssl=true`
   }
 };
 
