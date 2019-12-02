@@ -7,6 +7,11 @@ Steps to get started:
 - \$ git clone https://github.com/sherpal8/backendDevPractise.git
 - \$ cd backendDevPractise
 - \$ npm install (installs all the dependencies below)
+- \$ touch config.js (creates config.js in root folder level)
+- in config.js, to copy and paste the following:
+  `module.exports = { username: null, password: null };`
+
+Note: Give actual values to username and password depending on your Operating System to allow for the functioniality of Postgres. Read postgres documentation for more information: https://www.postgresql.org/
 
 ##### Dependencies:
 
@@ -32,7 +37,7 @@ Install the software above. Then run the command below on your CLI:
 This command will result in the setup and seeding of the development database.
 This command can also be used to repopulate the development database should it be necessary.
 
-- Note: The test database of sqlite3 will be autopopulated with the command \$ npm run test
+- Note: The test database of sqlite3 will be autopopulated with the command \$ npm run test, resulting in the autogeneration of ./testDB.sqlite3 i.e. in the root-folder.
 
 **`Testing`**
 
@@ -47,7 +52,7 @@ The tests utilise mocha, chai, supertest, chai-sorted.
 
 - \$ npm run viewTables (output of production schemae in ./output.txt)
 
-- \$ npm run dev (runs nodemon on port 9090 to then allow requests with the Insomnia rest client https://insomnia.rest/)
+- \$ npm run dev (runs nodemon on port 9090 to then allow requests with the Insomnia rest client https://insomnia.rest/. Should PORT 9090 be blocked on your local computer, you may change the PORT number value in ./listen.js i.e. in the root folder)
 
 - \$ npm run repopulateDB (to allow migration rollback, then migrate latest, and finally the re-seeding of PG production database should the need arise)
 
