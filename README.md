@@ -2,7 +2,7 @@
 
 This document is a general explanation of this project was completed. This is for the purpose of the ease of reproducibility for future projects.
 
-For information on this API specifically, please refer to README-api.md.
+For information on this API specifically, please refer to ./README-api.md i.e. in the root folder.
 
 ### Objective:
 
@@ -262,4 +262,4 @@ DELETE /api/comments/:comment_id
 
 ### Hosting
 
-Hosting is done via deployment to Heroku, with access to the free PG database on Heroku.
+Hosting is done via deployment to Heroku, with access to the free PG database on Heroku. More information can be found on ./README-hosting.md i.e. in the root folder.
