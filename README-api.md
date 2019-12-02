@@ -22,11 +22,13 @@ To get started, install the following as below via npm installation.
 
 **`Installation`**
 Install the software above. Then run the command below on your CLI:
-\$ npm run repopulateDB
 
-This comments will result in the seeding of the database and set up the development environment.
-This command can also be used to repopulate the production database should it be necessary.
-Note: The test database of sqlite3 will be autopopulated with the command /\$ npm run test
+- \$ npm run repopulateDB
+
+This command will result in the seeding of the development database and set up the development environment.
+This command can also be used to repopulate the development database should it be necessary.
+
+- Note: The test database of sqlite3 will be autopopulated with the command \$ npm run test
 
 **`Testing`**
 
