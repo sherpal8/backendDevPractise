@@ -1,2 +1,4 @@
 node_modules
 config.js
+output.txt
+testDB.sqlite3

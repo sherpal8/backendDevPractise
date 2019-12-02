@@ -1,8 +1,12 @@
 **\*\* `Project Title` \*\***
 backendDevPractise is an application. This application is to retrieve articles and comments from Northcoders news. It utilises PostGres for access to its secure database. Also, for the purpose of testing, sqlite3 was used as the database of choice.
 
-**`Prerequisites`**
-To get started, install the following as below via npm installation.
+**`Installation`**
+Steps to get started:
+
+- \$ git clone https://github.com/sherpal8/backendDevPractise.git
+- \$ cd backendDevPractise
+- \$ npm install (installs all the dependencies below)
 
 ##### Dependencies:
 
@@ -20,12 +24,12 @@ To get started, install the following as below via npm installation.
 4. supertest
 5. nodemon
 
-**`Installation`**
+**`Instantiating development database`**
 Install the software above. Then run the command below on your CLI:
 
 - \$ npm run repopulateDB
 
-This command will result in the seeding of the development database and set up the development environment.
+This command will result in the setup and seeding of the development database.
 This command can also be used to repopulate the development database should it be necessary.
 
 - Note: The test database of sqlite3 will be autopopulated with the command \$ npm run test
